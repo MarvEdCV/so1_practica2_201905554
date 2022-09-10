@@ -13,6 +13,7 @@
 
 /*libreria para cpu*/
 #include <linux/sched.h>
+#include <linux/sched/signal.h>
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Creación de modulo de CPU en Linux, Laboratio Sistemas Operativos 1");
