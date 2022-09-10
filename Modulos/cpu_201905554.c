@@ -1,19 +1,39 @@
-#include <linux/module.h>
+//#include <linux/module.h>
 // para usar KERN_INFO
-#include <linux/kernel.h>
+//#include <linux/kernel.h>
 
 //Header para los macros module_init y module_exit
-#include <linux/init.h>
+//#include <linux/init.h>
 //Header necesario porque se usara proc_fs
-#include <linux/proc_fs.h>
-/* for copy_from_user */
-#include <asm/uaccess.h>	
-/* Header para usar la lib seq_file y manejar el archivo en /proc*/
-#include <linux/seq_file.h>
+//#include <linux/proc_fs.h>
+// for copy_from_user 
+//#include <asm/uaccess.h>	
+//Header para usar la lib seq_file y manejar el archivo en /proc*/
+//#include <linux/seq_file.h>
 
-/*libreria para cpu*/
+//libreria para cpu
+//#include <linux/sched.h>
+
+//#include <linux/sched/signal.h>
+
+#include <linux/module.h> 
+
+#include <linux/kernel.h>
+
+#include <linux/init.h>
+
+#include <linux/list.h>
+#include <linux/types.h>
+#include <linux/slab.h>
 #include <linux/sched.h>
+#include <linux/string.h>
+#include <linux/fs.h>
+#include <linux/seq_file.h>
+#include <linux/proc_fs.h>
+#include <asm/uaccess.h> 
+#include <linux/hugetlb.h>
 #include <linux/sched/signal.h>
+#include <linux/sched.h>
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Creación de modulo de CPU en Linux, Laboratio Sistemas Operativos 1");
