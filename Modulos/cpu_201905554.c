@@ -19,6 +19,9 @@ MODULE_DESCRIPTION("Creación de modulo de CPU en Linux, Laboratio Sistemas Oper
 MODULE_AUTHOR("Marvin Eduardo Catalán Véliz");
 
 struct task_struct * cpu;
+struct task_struct * child;
+struct list_head * lstProcess;
+
 
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
