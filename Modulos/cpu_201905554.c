@@ -30,6 +30,8 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo, "%d", cpu->pid);
         seq_printf(archivo, " --------> ");
         seq_printf(archivo, "%s", cpu->comm);
+        seq_printf(archivo, " --------> ");
+        seq_printf(archivo, "%s", cpu->__kuid_val(task_uid(task));
         seq_printf(archivo, "\n");
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
