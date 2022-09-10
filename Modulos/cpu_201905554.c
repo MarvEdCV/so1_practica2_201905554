@@ -59,8 +59,9 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
             child = list_entry(lstProcess, struct task_struct, sibling);
             seq_printf(archivo,"\"pid\":%d\n\"nombre\":%s\n\"usuario\":%d\n\"estado\":%d\n\"hijo\":1\n",child->pid,child->comm,child->cred->uid.val,child->__state,cpu->pid);
         }
-        seq_printf(archivo,"}");
+        
     }
+    seq_printf(archivo,"}");
     return 0;
 }
 
