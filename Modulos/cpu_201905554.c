@@ -52,7 +52,7 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo, "%d,%s,%d,%d,0\n",cpu->pid,cpu->comm,cpu->cred->uid.val,cpu->__state);
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
-            seq_printf(archivo, "%d,%s,%d,%d,0\n",child->pid,child->comm,child->cred->uid.val,child->__state);
+            seq_printf(archivo, "%d,%s,%d,%d,%d\n",child->pid,child->comm,child->cred->uid.val,child->__state,cpu->pid);
         }
     }
     return 0;
