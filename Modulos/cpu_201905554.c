@@ -49,16 +49,17 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     int numeropadres = 0;
     int numerohijos = 0;
-    seq_printf(archivo,"PID,NOMBRE,USUARIO,ESTADO,PADRE\n");
+
+    seq_printf(archivo,"{\n\"procesos\":\n");
     for_each_process(cpu){
         numeropadres++;
-        seq_printf(archivo, "%d,%s,%d,%d,0\n",cpu->pid,cpu->comm,cpu->cred->uid.val,cpu->__state);
+        seq_printf(archivo,"\"pid\":%d\n\"nombre\":%s\n\"usuario\":%d\n\"estado\":%d\n\"hijo\":0\n",cpu->pid,cpu->comm,cpu->cred->uid.val,cpu->__state);
         list_for_each(lstProcess, &(cpu->children)){
             numerohijos++;
             child = list_entry(lstProcess, struct task_struct, sibling);
-            seq_printf(archivo, "%d,%s,%d,%d,%d\n",child->pid,child->comm,child->cred->uid.val,child->__state,cpu->pid);
+            seq_printf(archivo,"\"pid\":%d\n\"nombre\":%s\n\"usuario\":%d\n\"estado\":%d\n\"hijo\":1\n",child->pid,child->comm,child->cred->uid.val,child->__state,cpu->pid);
         }
-        seq_printf(archivo,"%d,%d,%d",numeropadres,numerohijos,(numeropadres + numerohijos));
+        seq_printf("}")
     }
     return 0;
 }
