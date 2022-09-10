@@ -48,16 +48,11 @@ struct list_head * lstProcess;
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
     for_each_process(cpu){
-        seq_printf(archivo,"PID,NOMBRE,USUARIO,ESTADO\n");
-        seq_printf(archivo, "%d,%s,%d,%s\n",cpu->pid,cpu->comm,cpu->cred->uid.val,cpu->__state);
-        seq_printf(archivo, "\n");
+        seq_printf(archivo,"PID,NOMBRE,USUARIO,ESTADO,PADRE\n");
+        seq_printf(archivo, "%d,%s,%d,%d,0\n",cpu->pid,cpu->comm,cpu->cred->uid.val,cpu->__state);
         list_for_each(lstProcess, &(cpu->children)){
             child = list_entry(lstProcess, struct task_struct, sibling);
-            seq_printf(archivo, "   ");
-            seq_printf(archivo, "%d", child->pid);
-            seq_printf(archivo, " --------> ");
-            seq_printf(archivo, "%s", child->comm);
-            seq_printf(archivo, "\n");
+            seq_printf(archivo, "%d,%s,%d,%d,0\n",child->pid,child->comm,child->cred->uid.val,child->__state);
         }
     }
     return 0;
