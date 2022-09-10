@@ -54,12 +54,12 @@ static int escribir_archivo(struct seq_file *archivo, void *v)
     for_each_process(cpu){
         numeropadres++;
         seq_printf(archivo,"{\"pid\":%d\n\"nombre\":%s\n\"usuario\":%d\n\"estado\":%d\n\"hijo\":0\n",cpu->pid,cpu->comm,cpu->cred->uid.val,cpu->__state);
-        seq_printf(archivo,"}")
+        seq_printf(archivo,"}");
         list_for_each(lstProcess, &(cpu->children)){
             numerohijos++;
             child = list_entry(lstProcess, struct task_struct, sibling);
             seq_printf(archivo,"\n\"pid\":%d\n\"nombre\":%s\n\"usuario\":%d\n\"estado\":%d\n\"hijo\":1\n",child->pid,child->comm,child->cred->uid.val,child->__state,cpu->pid);
-            seq_printf(archivo,"}")
+            seq_printf(archivo,"}");
         }
         
     }
