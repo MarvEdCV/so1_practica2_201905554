@@ -11,6 +11,10 @@
 /* Header para usar la lib seq_file y manejar el archivo en /proc*/
 #include <linux/seq_file.h>
 
+/* libreria para ram*/
+#include <linux/hugetlb.h>
+
+
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Creación de modulo de RAM en Linux, Laboratio Sistemas Operativos 1");
 MODULE_AUTHOR("Marvin Eduardo Catalán Véliz");

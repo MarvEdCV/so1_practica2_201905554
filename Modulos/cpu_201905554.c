@@ -11,17 +11,32 @@
 /* Header para usar la lib seq_file y manejar el archivo en /proc*/
 #include <linux/seq_file.h>
 
+/*libreria para cpu*/
+#include <linux/sched.h>
+
 MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Creación de modulo de RAM en Linux, Laboratio Sistemas Operativos 1");
+MODULE_DESCRIPTION("Creación de modulo de CPU en Linux, Laboratio Sistemas Operativos 1");
 MODULE_AUTHOR("Marvin Eduardo Catalán Véliz");
+
+struct task_struct * cpu;
 
 //Funcion que se ejecutara cada vez que se lea el archivo con el comando CAT
 static int escribir_archivo(struct seq_file *archivo, void *v)
 {   
-    //ejemplo de escritura en archivo
-    seq_printf(archivo, "{\"data\":\"");
-    seq_printf(archivo, "TEST RAM\n");
-    seq_printf(archivo, "\"}");
+    for_each_process(cpu){
+        seq_printf(archivo, "%d", cpu->pid);
+        seq_printf(archivo, " --------> ");
+        seq_printf(archivo, "%s", cpu->comm);
+        seq_printf(archivo, "\n");
+        list_for_each(lstProcess, &(cpu->children)){
+            child = list_entry(lstProcess, struct task_struct, sibling);
+            seq_printf(archivo, "   ");
+            seq_printf(archivo, "%d", child->pid);
+            seq_printf(archivo, " --------> ");
+            seq_printf(archivo, "%s", child->comm);
+            seq_printf(archivo, "\n");
+        }
+    }
     return 0;
 }
 
